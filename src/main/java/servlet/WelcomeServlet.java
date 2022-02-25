@@ -23,8 +23,8 @@ public class WelcomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Category> categories=categoryManager.getAllICategories();
         req.setAttribute("categories",categories);
-//        List<Item> items=itemManager.getAllItemsByLimit();
-//        req.setAttribute("items",items);
+        List<Item> items=itemManager.getAllItems();
+        req.setAttribute("items",items);
         req.getRequestDispatcher("/WEB-INF/home.jsp").forward(req,resp);
     }
 }

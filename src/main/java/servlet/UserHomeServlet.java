@@ -29,7 +29,6 @@ public class UserHomeServlet extends HttpServlet {
 
         req.setAttribute("items", allItemsByUserId);
         req.setAttribute("categories", categoryList);
-
         req.getRequestDispatcher("/WEB-INF/userHome.jsp").forward(req, resp);
 
 

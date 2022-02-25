@@ -2,6 +2,7 @@ package manager;
 
 import db.DBConnectionProvider;
 import model.Item;
+import model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -56,27 +57,27 @@ public class ItemManager {
         }
         return items;
     }
-//    public List<Item> getAllItemsByLimit() {
-//        List<Item> items = new ArrayList<>();
-//        String sql = "SELECT * FROM item  DESC LIMIT 20";
-//        try {
-//            Statement statement = connection.createStatement();
-//            ResultSet resultSet = statement.executeQuery(sql);
-//            while (resultSet.next()) {
-//                Item item = new Item();
-//                item.setId(resultSet.getInt(1));
-//                item.setTitle(resultSet.getString(2));
-//                item.setPrice(resultSet.getDouble(3));
-//                item.setCategoryId(resultSet.getInt(4));
-//                item.setUserId(resultSet.getInt(5));
-//                item.setPictureUrl(resultSet.getString(6));
-//                items.add(item);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return items;
-//    }
+    public List<Item> getAllItemsByLimit() {
+        List<Item> items = new ArrayList<>();
+        String sql = "SELECT * FROM item ORDER BY  DESC LIMIT 20";
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                Item item = new Item();
+                item.setId(resultSet.getInt(1));
+                item.setTitle(resultSet.getString(2));
+                item.setPrice(resultSet.getDouble(3));
+                item.setCategoryId(resultSet.getInt(4));
+                item.setUserId(resultSet.getInt(5));
+                item.setPictureUrl(resultSet.getString(6));
+                items.add(item);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return items;
+    }
 
     public List<Item> getAllItemsByUserId(int userId) {
         List<Item> items = new ArrayList<>();
@@ -122,5 +123,14 @@ public class ItemManager {
             e.printStackTrace();
         }
         return items;
+    }
+    public void deleteById(int id) {
+        String sql = "delete FROM item WHERE id=" + id;
+        try {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -14,7 +14,7 @@
 </head>
 <body>
 <% List<Category> categories = (List<Category>) request.getAttribute("categories");
-// List<Item> items = (List<Item>) request.getAttribute("items");
+ List<Item> items = (List<Item>) request.getAttribute("items");
 %>
 <a href="/userRegister">Register</a><br>
 <a href="/login"> Login</a>
@@ -46,19 +46,30 @@
 <%--        </tr>--%>
 
 <%--    </table>--%>
-<%--</div>--%>
 
-<%--<div >--%>
-<%--    <%--%>
-<%--        for (Item item : items) {--%>
-<%--            if (item.getPictureUrl() != null) {%>--%>
-<%--    <img src="/image?path=<%=item.getPictureUrl()%>" width="150"/>--%>
-<%--    <%--%>
-<%--        }%>--%>
-<%--    <%--%>
-<%--        }--%>
-<%--    %>--%>
-<%--</div>--%>
+<div>
+    <table border="1">
+        <tr>
+            <th>title</th>
+            <th>price</th>
 
+        </tr>
+        <%
+            for (Item item : items) {%>
+        <tr>
+            <td><%=item.getTitle() %>
+            </td>
+            <td><%=item.getPrice() %>
+            </td>
+            <td><%
+                if (item.getPictureUrl() != null) {%>
+                <img src="/image?path=<%=item.getPictureUrl()%>" width="100"/>
+                <%}%></td>
+        </tr>
+        <%
+            }
+        %>
+    </table>
+</div>
 </body>
 </html>

@@ -40,15 +40,29 @@ Welcome <%=user.getName()%>
     </form>
 </div>
 <div>
-    <%
-        for (Item item : allItems) {
-            if (item.getPictureUrl() != null) {%>
-    <img  src="/image?path=<%=item.getPictureUrl()%>" width="150"/>
-    <%
-        }%>
-    <%
-    }
-%>
+    <table border="1">
+        <tr>
+            <th>title</th>
+            <th>price</th>
+
+        </tr>
+        <%
+            for (Item item : allItems) {%>
+        <tr>
+            <td><%=item.getTitle() %>
+            </td>
+            <td><%=item.getPrice() %>
+            </td>
+            <td><a href="/deleteItem?id=<%=item.getId()%>"> Delete</a></td>
+            <td><%
+                if (item.getPictureUrl() != null) {%>
+                <img src="/image?path=<%=item.getPictureUrl()%>" width="100"/>
+                <%}%></td>
+        </tr>
+        <%
+            }
+        %>
+    </table>
 </div>
 </body>
 </html>
