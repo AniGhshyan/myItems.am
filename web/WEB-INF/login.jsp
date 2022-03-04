@@ -11,10 +11,10 @@
     <title>Login</title>
 </head>
 <body>
-<a href="/logout">logout</a><br>
+<a href="/">Back</a>
 <form action="/login" method="post">
-    <input type="email" name="email" placeholder="Input your email"><br>
-    <input type="password" name="password" placeholder="Input your password"><br>
+    <input type="email" name="email"/><br>
+    <input type="password" name="password" /><br>
     <input type="submit" value="ok">
 </form>
 

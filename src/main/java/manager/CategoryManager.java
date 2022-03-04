@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryManager {
-    private  static Connection connection = DBConnectionProvider.getInstance().getConnection();
+    private  Connection connection = DBConnectionProvider.getInstance().getConnection();
 
-    public static void add(Category category) {
+    public  void add(Category category) {
         String sql = "insert into category(name) VALUES(?)";
         try {
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -21,14 +21,13 @@ public class CategoryManager {
                 int anInt = resultSet.getInt(1);
                 category.setId(anInt);
             }
-            System.out.println("User was added successfully");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public Category getCategoryById(int id) {
-        String sql = "SELECT * FROM category WHERE id=" + id;
+        String sql = "SELECT * FROM category WHERE id = " + id;
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);

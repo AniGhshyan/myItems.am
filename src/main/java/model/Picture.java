@@ -9,13 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Item {
-
+public class Picture {
     private int id;
-    private String title;
-    private double price;
-    private String description;
-    private User user;
-    private Category category;
+    private String pictureUrl;
+    private Item item;
 
 }

@@ -7,34 +7,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
-@WebServlet(urlPatterns = "/image")
+@WebServlet(urlPatterns = "/getImage")
 public class ImageDownloadServlet extends HttpServlet {
 
-    private final String UPLOAD_DIR = "C:\\Users\\User\\IdeaProjects\\myItems.am\\src\\upload";
+    private final String UPLOAD_DIR = "C:\\Users\\User\\IdeaProjects\\myItems.am\\image\\";
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String path = req.getParameter("path");
-        if (path == null || path.length() == 0) {
-            resp.sendRedirect("/");
-        }
-        File file=new File(UPLOAD_DIR + File.separator + path);
-        if (!file.exists()) {
-            resp.sendRedirect("/");
-        }else {
-            resp.setContentType("image/jpeg");
-            resp.setHeader("Content-disposition", "attachment; filename=" + path);
-            try (InputStream in = new FileInputStream(file);
-                 OutputStream out = resp.getOutputStream()) {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String picUrl = req.getParameter("picture_url");
+        String filePath = UPLOAD_DIR + picUrl;
+        File file = new File(filePath);
+        if (file.exists()) {
+            try (InputStream in = new FileInputStream(file)) {
+                resp.setContentType("image/jpeg");
+                resp.setContentLength((int) file.length());
+                OutputStream out = resp.getOutputStream();
+                byte[] buffer = new byte[4096];
+                int numBytesRead = -1;
 
-                byte[] buffer = new byte[1048];
-
-                int numBytesRead;
-                while ((numBytesRead = in.read(buffer)) > 0) {
+                while ((numBytesRead = in.read(buffer)) != -1) {
                     out.write(buffer, 0, numBytesRead);
                 }
-            }
 
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
